@@ -9,7 +9,7 @@
 ## Installation
 
 - Install Ruby on Rails on your computer machine (Linux/MacOS)
-- You can use rbenv or rvm. I suggest rbenv because it is more flexible to configure
+- You can use rbenv or rvm. I suggest to use rbenv because it is more flexible to configure
 
 ### Clone
 
