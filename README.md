@@ -2,7 +2,7 @@
 
 # Gruper Warehouse System
 
-> Gruper Warehouse System is an open source platform to managing your warehousing stock, purchase, invoice and report of your products at your warehouse
+> Gruper Warehouse System is an open source platform to managing your warehousing stock, purchase, invoice and report of your products as your Warehouse Management System. Based on Indonesian Currency.
 
 [![Gruper Warehouse System](https://i.imgur.com/NsxpHoW.png)]()
 
