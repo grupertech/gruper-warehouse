@@ -1,0 +1,11 @@
+= title 'Units'
+
+.card
+  .card-header
+    .float-left Units
+    .float-right
+      = link_to 'New Unit', new_admin_unit_url, class: 'text-white badge badge-primary'
+  .card-body
+    = render 'unit'
+    .digg_pagination
+      = will_paginate @units, :container => false

@@ -1,0 +1,48 @@
+.table-responsive
+  table.table.table-hover
+    thead
+      tr
+        th Receiver Payment
+        th Invoice Number
+        th Expected Payment
+        th Actual Payment
+        th Status
+        th Actions
+    tbody
+      - @payments.each do |payment|
+        tr id="payment_#{payment.id}"
+          - if payment.invoice.customer.present?
+            td= payment.invoice.customer.name
+          - else
+            td= payment.invoice.vendor.name
+          td= payment.invoice.number_invoice
+          td= number_to_currency(payment.invoice.grand_total, precision: 0, unit: 'Rp ', delimiter: '.')
+          td= number_to_currency(payment.amount, precision: 0, unit: 'Rp ', delimiter: '.')
+          - if payment.status == 'pending'
+            td
+              small.badge.badge-warning.text-capitalize= payment.status
+          - elsif payment.status == 'confirmed'
+            td
+              small.badge.badge-success.text-capitalize= payment.status
+          - elsif payment.status == 'paid partially' && payment.invoice.grand_total == payment.amount
+            td
+              small.badge.badge-success.text-capitalize= payment.status
+          - elsif payment.status == 'paid partially' && payment.invoice.grand_total != payment.amount
+            td
+              small.badge.badge-warning.text-capitalize= payment.status
+          - elsif payment.status == 'cancel'
+            td
+              small.badge.badge-danger.text-capitalize= payment.status
+          td
+            .dropdown
+              button#dropdownMenuButton.btn.btn-danger.btn-xs.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button" 
+                | Actions
+              .dropdown-menu aria-labelledby="dropdownMenuButton"
+                - if payment.status == 'pending'
+                  = link_to 'Confirmed Payment', confirmed_admin_payment_url(payment), method: :patch, class: 'dropdown-item'
+                  = link_to 'Cancel Payment', cancel_admin_payment_url(payment), method: :patch, class: 'dropdown-item'
+                - elsif payment.status == 'paid partially' && payment.invoice.grand_total != payment.amount
+                  = link_to 'Paid Partially', paid_partially_modal_admin_payment_url(payment), remote: true, class: 'dropdown-item'
+                = link_to 'Detail', admin_payment_url(payment), class: 'dropdown-item'
+                = link_to 'Update', edit_admin_payment_url(payment), class: 'dropdown-item'
+                = link_to 'Delete', admin_payment_url(payment), method: :delete, class: 'dropdown-item', data: { confirm: 'Are you sure?' }

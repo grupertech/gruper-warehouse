@@ -1,0 +1,37 @@
+= title 'All Reports'
+
+.card
+  .card-header All Reports
+  .card-body
+    table.table.table-hover
+      tbody.text-center
+        tr
+          th All Invoices
+          td= link_to 'Download', admin_reports_invoices_url
+        tr
+          th Pending Invoices
+          td= link_to 'Download', admin_reports_pending_invoices_url
+        tr
+          th Waiting Payment Invoices
+          td= link_to 'Download', admin_reports_waiting_payment_invoices_url
+        tr
+          th In Process Invoices
+          td= link_to 'Download', admin_reports_in_process_invoices_url
+        tr
+          th Completed Invoices
+          td= link_to 'Download', admin_reports_completed_invoices_url
+        tr
+          th Cancel Invoices
+          td= link_to 'Download', admin_reports_cancel_invoices_url
+        tr
+          th All Payments
+          td= link_to 'Download', admin_reports_payments_url
+        tr
+          th Paid Partially Payments
+          td= link_to 'Download', admin_reports_paid_partially_payments_url
+        tr
+          th Confirmed Payments
+          td= link_to 'Download', admin_reports_confirmed_payments_url
+        tr
+          th Cancel Payments
+          td= link_to 'Download', admin_reports_cancel_payments_url

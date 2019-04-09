@@ -1,0 +1,11 @@
+= title 'Payment Types'
+
+.card
+  .card-header
+    .float-left Payment Types
+    .float-right
+      = link_to 'New Payment Type', new_admin_payment_type_url, class: 'text-white badge badge-primary'
+  .card-body
+    = render 'payment_type'
+    .digg_pagination
+      = will_paginate @payment_types, :container => false

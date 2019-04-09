@@ -1,0 +1,42 @@
+.card
+  ul.nav.nav-tabs
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/payments")}") href=admin_payments_url All Payments
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/payments/paid-partially")}") href=paid_partially_admin_payments_url Paid Partially Payments
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/payments/confirmed")}") href=confirmed_admin_payments_url Confirmed Payments
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/payments/cancel")}") href=cancel_admin_payments_url Cancel Payments
+  .card-header
+    .float-left= yield(:title)
+    - if yield(:title) == 'All Payments'
+      .float-right
+        = link_to 'New Payment', new_admin_payment_url, class: 'badge badge-primary'
+  .card-body
+    = search_form_for @q, url: admin_payments_url do |f|
+      .row
+        .col-md-3
+          .form-group
+            = f.search_field :invoice_number_invoice_cont, class: 'form-control', placeholder: 'Invoice Number'
+        .col-md-3
+          .form-group
+            = f.search_field :purchase_number_purchase_cont, class: 'form-control', placeholder: 'Purchase Number'
+        .col-md-3
+          .form-group
+            = f.search_field :invoice_customer_name_cont, class: 'form-control', placeholder: 'Customer Name'
+        .col-md-3
+          .form-group
+            = f.search_field :purchase_vendor_name_cont, class: 'form-control', placeholder: 'Vendor Name'
+        .col-md-3
+          .form-group
+            .row
+              .col-md-6
+                = f.submit 'Search', class: 'btn btn-success btn-block'
+              .col-md-6
+                input.btn.btn-default.btn-block[value="Clear" type="button" onclick="location.href='#{request.path}'"]
+    = render 'payment'
+    .digg_pagination
+      = will_paginate @payments, :container => false
+
+= render 'modal'

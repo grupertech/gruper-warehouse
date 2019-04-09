@@ -1,0 +1,166 @@
+= title 'Detail Payment Invoice'
+
+.card
+  .card-header
+    .pull-left Detail Payment Invoice
+    .pull-right= link_to 'Download Payment Invoice', admin_download_payment_url(@payment, format: "pdf"), target: "_blank", class: 'btn btn-danger btn-xs'
+  .card-body
+    .row
+      .col-md-12
+        h2.pull-left Invoice Number:
+        h2.pull-right= "#{@payment.invoice.number_invoice}"
+    hr/
+    .row
+      .col-md-12
+        .pull-left
+          address
+            strong Billed To:
+            br/
+            - if @payment.invoice.customer.present?
+              = @payment.invoice.customer.name
+            - elsif @payment.invoice.vendor.present?
+              = @payment.invoice.vendor.name
+            - else
+              = ''
+            br/
+            - if @payment.invoice.customer.present?
+              = @payment.invoice.customer.phone_number
+            - elsif @payment.invoice.vendor.present?
+              = @payment.invoice.vendor.phone_number
+            - else
+              = ''
+            br/
+            - if @payment.invoice.customer.present?
+              = @payment.invoice.customer.address
+            - elsif @payment.invoice.vendor.present?
+              = @payment.invoice.vendor.address
+            - else
+              = ''
+            br/
+            - if @payment.invoice.customer.present?
+              = @payment.invoice.customer.country
+            - elsif @payment.invoice.vendor.present?
+              = @payment.invoice.vendor.country
+            - else
+              = ''
+        .pull-right
+          address.text-right
+            strong Shipped To:
+            br/
+            - if @payment.invoice.customer.present?
+              = @payment.invoice.customer.name
+            - elsif @payment.invoice.vendor.present?
+              = @payment.invoice.vendor.name
+            - else
+              = ''
+            br/
+            - if @payment.invoice.customer.present?
+              = @payment.invoice.customer.phone_number
+            - elsif @payment.invoice.vendor.present?
+              = @payment.invoice.vendor.phone_number
+            - else
+              = ''
+            br/
+            - if @payment.invoice.customer.present?
+              = @payment.invoice.customer.address
+            - elsif @payment.invoice.vendor.present?
+              = @payment.invoice.vendor.address
+            - else
+              = ''
+            br/
+            - if @payment.invoice.customer.present?
+              = @payment.invoice.customer.country
+            - elsif @payment.invoice.vendor.present?
+              = @payment.invoice.vendor.country
+            - else
+              = ''
+    .row
+      .col-md-12
+        address.pull-left
+          strong Payment Method:
+          br/
+          = @payment.invoice.payment_method.capitalize
+          br/
+          - if @payment.invoice.customer.present?
+            = @payment.invoice.customer.email
+          - elsif @payment.invoice.vendor.present?
+            = @payment.invoice.vendor.email
+          - else
+            = ''
+        address.pull-right.text-right
+          strong Invoice Date:
+          br/
+          = @payment.invoice.invoice_date.strftime("%-d %B, %Y")
+          br/
+          br/
+    .row
+      .col-md-12
+        address.pull-left
+          strong Receiver Amount To:
+          - if @payment.invoice.vendor.present?
+            br/
+            = @payment.invoice.vendor.name
+            br/
+            = @payment.invoice.vendor.phone_number
+            br/
+            = @payment.invoice.vendor.address
+            br/
+            = @payment.invoice.vendor.country
+            br/
+          - elsif @payment.invoice.customer.present?
+            br/
+            = @payment.invoice.customer.name
+            br/
+            = @payment.invoice.customer.phone_number
+            br/
+            = @payment.invoice.customer.address
+            br/
+            = @payment.invoice.customer.country
+            br/
+          br/
+          strong Paid Amount:
+          br/
+          = number_to_currency(@payment.amount, precision: 0, unit: 'Rp ', delimiter: '.')
+        address.pull-right
+          strong Status:
+          br/
+          - if @payment.invoice.status == 'pending'
+            .badge.badge-warning= @payment.invoice.status.capitalize
+          - elsif @payment.invoice.status == 'paid'
+            .badge.badge-success= @payment.invoice.status.capitalize
+          - elsif @payment.invoice.status == 'cancel'
+            .badge.badge-danger= @payment.invoice.status.capitalize
+    .row
+      .col-md-12
+        .table-responsive
+          table.table.table-bordered
+            thead
+              tr
+                th.text-center colspan="5" Invoice Summary
+              tr
+                td
+                  strong Item
+                td.text-center
+                  strong Price
+                td.text-center
+                    strong Tax
+                td.text-center
+                  strong Quantity
+                td.text-right
+                  strong Totals
+            tbody
+              - @payment.invoice.invoice_details.each do |invoice_detail|
+                tr
+                  td= invoice_detail.product.name
+                  td.text-center= number_to_currency(invoice_detail.cost, precision: 0, unit: 'Rp ', delimiter: '.')
+                  td.text-center= "#{invoice_detail.tax.name} = #{number_to_currency(invoice_detail.tax_per_product, precision: 0, unit: 'Rp ', delimiter: '.')} / Product"
+                  td.text-center= invoice_detail.qty
+                  td.text-right= number_to_currency(invoice_detail.total_price, precision: 0, unit: 'Rp ', delimiter: '.')
+              tr
+                td colspan="3" style="border-top-width: thick;"
+                th.text-center style="border-top-width: thick;" Subtotal
+                td.text-right style="border-top-width: thick;"= number_to_currency(@payment.invoice.subtotal, precision: 0, unit: 'Rp ', delimiter: '.')
+              tr
+                td colspan="3" style="border-top-width: thick;"
+                th.text-center style="border-top-width: thick;" Grandtotal + Tax
+                td.text-right style="border-top-width: thick;"= number_to_currency(@payment.invoice.grand_total, precision: 0, unit: 'Rp ', delimiter: '.')

@@ -1,0 +1,40 @@
+.logo-header
+  a.logo href=admin_root_url
+    = t('company_name')
+  button.navbar-toggler.sidenav-toggler.ml-auto aria-controls="sidebar" aria-expanded="false" aria-label=("Toggle navigation") data-target="collapse" data-toggle="collapse" type="button"
+    span.navbar-toggler-icon
+  button.topbar-toggler.more
+    i.la.la-ellipsis-v
+nav.navbar.navbar-header.navbar-expand-lg
+  .container-fluid
+    ul.navbar-nav.topbar-nav.ml-md-auto.align-items-center
+      li.nav-item.dropdown.hidden-caret
+        a.nav-link.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#"
+          span= "#{t('language')} #{t('translation')}"
+        ul.dropdown-menu.dropdown-user
+          = link_to 'English', admin_root_url('en'), class: 'dropdown-item'
+          = link_to 'Indonesia', admin_root_url('id'), class: 'dropdown-item'
+      li.nav-item.dropdown
+        a.dropdown-toggle.profile-pic aria-expanded="false" data-toggle="dropdown" href="#"
+          = image_tag("profile.jpg", class: 'img-circle', width: 36)
+          - if current_user.name.present?
+            span= current_user.name
+          - else
+            span= t('admin_company')
+        ul.dropdown-menu.dropdown-user
+          li
+            .user-box
+              .u-img
+                = image_tag("profile.jpg")
+              .u-text
+                - if current_user.name.present?
+                  h4= current_user.name
+                - else
+                  h4= t('company_name')
+                p.text-muted= current_user.email
+                a.btn.btn-rounded.btn-danger.btn-sm href="#"
+                  = t('change_profile')
+          .dropdown-divider
+
+          = link_to destroy_user_session_url, method: :delete, class: 'dropdown-item' do
+            = t('logout')

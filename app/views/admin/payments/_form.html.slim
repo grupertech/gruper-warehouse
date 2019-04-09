@@ -1,0 +1,44 @@
+= simple_form_for [:admin, @payment] do |f|
+  .form-group
+    input#r1 name="radio1" type="radio" /  
+    | For Invoice
+    span &nbsp;&nbsp;&nbsp;&nbsp;
+    input#r2 name="radio1" type="radio" /  
+    | For Purchase
+  .form-group.selectPurchase
+    label Purchase
+    = f.input :purchase_id, label: false, collection: Purchase.where(status: 'pending'), label_method: :number_purchase, value_method: :id, input_html: {class: 'form-control selectPurch'}, include_blank: "Select..."
+  .form-group.selectInvoice
+    label Invoice
+    = f.input :invoice_id, label: false, collection: Invoice.where(status: 'pending'), label_method: :number_invoice, value_method: :id, input_html: {class: 'form-control selectInv'}, include_blank: 'Select...'
+  .form-group
+    = f.input :number_payment, input_html: {class: 'form-control', placeholder: 'PYM' + Date.today.strftime("%d%m%Y") + @payment.id.to_s.rjust(5, '0')}, disabled: true  
+  .form-group
+    label Actual Payment
+    = f.input :amount, label: false, input_html: {class: 'form-control'}
+  .form-group
+    = f.input :note, input_html: {class: 'form-control', rows: 4}
+  .form-group
+    = f.button :submit, 'save', class: 'btn btn-danger btn-block text-capitalize'
+
+javascript:
+  $(".selectInv").select2({
+    theme: "bootstrap"
+  });
+
+  $(".selectPurch").select2({
+    theme: "bootstrap"
+  });
+
+  $(document).ready(function () {
+    $(".selectInvoice").hide();
+    $(".selectPurchase").hide();
+    $("#r1").click(function () {
+      $(".selectInvoice").show();
+      $(".selectPurchase").hide();
+    });
+    $("#r2").click(function () {
+      $(".selectPurchase").show();
+      $(".selectInvoice").hide();
+    });
+  });

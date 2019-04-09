@@ -1,0 +1,27 @@
+= simple_form_for [:admin, @purchase] do |f|
+  .form-group
+    label Vendor
+    = f.input :vendor_id, label: false, collection: Vendor.all, label_method: :name, value_method: :id, input_html: {class: 'form-control selectVend'}, include_blank: "Select..."
+  .form-group
+    label Purchase Date
+    = f.date_field :purchase_date, class: 'form-control', value: Date.today
+  .form-group
+    = f.input :number_purchase, input_html: {class: 'form-control', placeholder: 'PCS' + Date.today.strftime("%d%m%Y") + @purchase.id.to_s.rjust(5, '0')}, disabled: true
+  .form-group
+    label Payment Type
+    = f.input :payment_type_id, label: false, collection: PaymentType.all, value_method: :id, label_method: :name, input_html: {class: 'form-control'}, include_blank: "select..."
+  .form-group
+    label Shipping Number
+    = f.input :shipping, label: false, input_html: {class: 'form-control', placeholder: "#{'#' + Date.today.strftime('%d%m%Y') + @purchase.id.to_s.rjust(5, '0')}"}, disabled: true
+  #purchase_details_field
+    = f.simple_fields_for :purchase_details do |purchase_detail|
+      = render 'purchase_detail_fields', f: purchase_detail
+  .form-group
+    = link_to_add_association 'add purchase detail', f, :purchase_details, class: 'btn btn-outline-dark btn-block text-capitalize', data: { association_insertion_node: '#purchase_details_field', association_insertion_method: :append }
+  .form-group
+    = f.button :submit, 'save', class: 'btn btn-danger btn-block text-capitalize'
+
+javascript:
+  $(".selectVend").select2({
+    theme: "bootstrap"
+  });

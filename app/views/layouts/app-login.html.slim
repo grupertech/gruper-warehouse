@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    meta charset="UTF-8" /
+    meta content="" name="description" /
+    meta content="IE=edge" http-equiv="X-UA-Compatible" /
+    meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" /
+    title
+      | Gruper-Warehouse #{content_for?(:title) ? yield(:title) : ''}
+    = favicon_link_tag asset_path('gruper.png'), :rel => 'icon', :type =>  'image/png'
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all'
+
+    link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" rel="stylesheet" type="text/css" /
+    link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"
+    link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+
+    = javascript_include_tag 'application'
+    = javascript_include_tag "https://www.gstatic.com/charts/loader.js"
+    = javascript_include_tag "Chart.bundle", "chartkick"
+    = alertify_flash
+  body
+    = yield
+
+    script src="https://unpkg.com/default-passive-events@1.0.10/dist/index.js"
+    script src="https://buttons.github.io/buttons.js"
+    script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js" type="text/javascript"

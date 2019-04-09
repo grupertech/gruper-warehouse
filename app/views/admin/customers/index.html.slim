@@ -1,0 +1,11 @@
+= title 'Customers'
+
+.card
+  .card-header
+    .float-left Customers
+    .float-right
+      = link_to 'New Customer', new_admin_customer_url, class: 'text-white badge badge-primary'
+  .card-body
+    = render 'customer'
+    .digg_pagination
+      = will_paginate @customers, :container => false

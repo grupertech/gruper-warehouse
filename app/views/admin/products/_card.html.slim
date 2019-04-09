@@ -1,0 +1,19 @@
+.card
+  ul.nav.nav-tabs 
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/products")}") href=admin_products_url All products
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/products/available")}") href=available_admin_products_url Available products
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/products/unavailable")}") href=unavailable_admin_products_url Unavailable products
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/products/in-review")}") href=in_review_admin_products_url In Review products
+  .card-header
+    .float-left= yield(:title)
+    - if yield(:title) == 'All Products'
+      .float-right
+        = link_to 'New Product', new_admin_product_url, class: 'text-white badge badge-primary'
+  .card-body
+    = render 'product'
+    .digg_pagination
+      = will_paginate @products, :container => false

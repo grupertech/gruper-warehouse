@@ -1,0 +1,19 @@
+.nested-fields
+  .form-group
+    table.table.table-bordered
+      tr
+        td= f.input :product_id, label: false, collection: Product.order('created_at desc').where(status: 'available'), input_html: { class: "form-control selectProduct" }, include_blank: "Select Product"
+        td= f.input :tax_id, label: false, collection: Tax.all, input_html: {class: 'form-control'}, include_blank: "Select Tax"
+        td= f.input :cost, label: false, input_html: { class: 'form-control' }, placeholder: "Cost"
+        td= f.input :qty, label: false, input_html: { class: 'form-control' }, placeholder: "Qty"
+        td
+          = link_to_remove_association f, class: 'btn btn-danger btn-block text-capitalize' do
+            i.fa.fa-trash
+
+javascript:
+  $(document).ready(function() {
+    // Select2 rails
+    $(".selectProduct").select2({
+      theme: "bootstrap"
+    });
+  });

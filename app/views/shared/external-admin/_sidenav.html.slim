@@ -1,0 +1,17 @@
+.sidebar
+  .scrollbar-inner.sidebar-wrapper
+    .user
+      .photo
+        = image_tag("profile.jpg")
+      .info
+        a aria-expanded="true" data-toggle="collapse" href="#collapseExample"
+          - if current_user.name.present?
+            span
+              = current_user.name
+              span.user-level.text-capitalize= "Role: #{current_user.role}"
+          - else
+            span
+              = t('admin_company')
+              span.user-level.text-capitalize= "Role: #{current_user.role}"
+    ul.nav
+      = render 'shared/external-admin/menu'

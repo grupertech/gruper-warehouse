@@ -1,0 +1,17 @@
+.table-responsive
+  table.table.table-hover
+    thead
+      tr
+        th Name
+        th Actions
+    tbody
+      - @units.each do |unit|
+        tr
+          td= unit.name
+          td
+            .dropdown
+              button#dropdownMenuButton.btn.btn-danger.btn-xs.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button" 
+                | Actions
+              .dropdown-menu aria-labelledby="dropdownMenuButton" 
+                = link_to 'Update', edit_admin_unit_url(unit), class: 'dropdown-item'
+                = link_to 'Delete', admin_unit_url(unit), method: :delete, class: 'dropdown-item', data: { confirm: 'Are you sure?' }

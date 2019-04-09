@@ -1,0 +1,7 @@
+= simple_form_for [:admin, @payment] do |f|
+  .form-group
+    label Actual Payment
+    = f.input :amount, label: false, input_html: {class: 'form-control'}
+    = f.hidden_field :status, value: 'paid partially'
+  .form-group
+    = f.button :submit, 'save', class: 'btn btn-danger btn-block text-capitalize'

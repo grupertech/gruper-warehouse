@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  anchor: 2019-02-06
+  frequency: 1
+  color: MyString
+
+two:
+  title: MyString
+  anchor: 2019-02-06
+  frequency: 1
+  color: MyString

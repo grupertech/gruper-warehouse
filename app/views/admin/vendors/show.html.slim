@@ -1,0 +1,38 @@
+= title 'Detail Vendor'
+
+.card
+  .card-header
+    .pull-left Detail Vendor
+    .pull-right List payments
+  .card-body
+    table.table.table-bordered
+      thead
+        tr
+          th payment Number
+          th Shipping
+          th Date
+          th Status
+          th Total Price
+          th Actions
+      tbody
+        - @payments.each do |payment|
+          tr
+            td= payment.invoice.reference
+            td= payment.invoice.shipping
+            td= payment.invoice.invoice_date.strftime("%-d %B, %Y")
+            - if payment.invoice.status == 'pending'
+              td
+                small.badge.badge-warning= payment.invoice.status.capitalize
+            - elsif payment.invoice.status == 'paid'
+              td
+                small.badge.badge-success= payment.invoice.status.capitalize
+            - elsif payment.invoice.status == 'cancel'
+              td
+                small.badge.badge-danger= payment.invoice.status.capitalize
+            td= number_to_currency(payment.invoice.grand_total, precision: 0, unit: 'Rp ', delimiter: '.')
+            td
+              .dropdown
+                button#dropdownMenuButton.btn.btn-danger.btn-xs.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button" 
+                  | Actions
+                .dropdown-menu aria-labelledby="dropdownMenuButton" 
+                  = link_to 'Download Payment', admin_download_payment_url(payment, format: "pdf"), target: "_blank", class: 'dropdown-item'

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  invoice_date: 2019-01-30
+  reference: MyString
+  customer: one
+  tax: one
+  order_discount: MyString
+  shipping: MyString
+
+two:
+  invoice_date: 2019-01-30
+  reference: MyString
+  customer: two
+  tax: two
+  order_discount: MyString
+  shipping: MyString

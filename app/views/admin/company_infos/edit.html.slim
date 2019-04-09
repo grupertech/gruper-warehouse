@@ -1,0 +1,37 @@
+= title 'Company Info'
+
+.card
+  .card-header Update Company Info
+  .card-body
+    = simple_form_for [:admin, @company_info], url: admin_company_info_path do |f|
+      .form-group
+        = f.input :name_company, input_html: {class: 'form-control'}
+      .form-group
+        = f.input :npwp, input_html: {class: 'form-control'}
+      .form-group
+        label Company Logo
+        = f.input :image, input_html: {class: 'form-control'}
+      .form-group
+        = f.input :website, input_html: {class: 'form-control'}
+      .form-group
+        = f.input :address, input_html: {class: 'form-control'}
+      .form-group
+        = f.input :city, input_html: {class: 'form-control'}
+      .form-group
+        = f.input :province, input_html: {class: 'form-control'}
+      .form-group
+        = f.input :postal_code, input_html: {class: 'form-control'}
+      .form-group
+        = f.input :country, input_html: {class: 'form-control'}
+      .form-group
+        = f.input :name_person, input_html: {class: 'form-control'}
+      .form-group
+        = f.input :phone_one, input_html: {class: 'form-control'}
+      .form-group
+        = f.input :phone_two, input_html: {class: 'form-control'}
+      .form-group
+        = f.input :email, input_html: {class: 'form-control'}
+      .form-group
+        = f.input :fax, input_html: {class: 'form-control'}
+      .form-group
+        = f.button :submit, 'save', class: 'btn btn-danger btn-block text-capitalize'

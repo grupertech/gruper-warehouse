@@ -1,0 +1,11 @@
+= title 'Brands'
+
+.card
+  .card-header
+    .float-left Brands
+    .float-right
+      = link_to 'New Brand', new_admin_brand_url, class: 'text-white badge badge-primary'
+  .card-body
+    = render 'brand'
+    .digg_pagination
+      = will_paginate @brands, :container => false

@@ -1,0 +1,11 @@
+= title 'Categories'
+
+.card
+  .card-header
+    .float-left Categories
+    .float-right
+      = link_to 'New Category', new_admin_category_url, class: 'text-white badge badge-primary'
+  .card-body
+    = render 'category'
+    .digg_pagination
+      = will_paginate @categories, :container => false

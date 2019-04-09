@@ -1,0 +1,20 @@
+.table-responsive
+  table.table.table-hover
+    thead
+      tr
+        th Code
+        th Name
+        th Actions
+    tbody
+      - @couriers.each do |courier|
+        tr
+          td= courier.code
+          td= courier.name
+          td
+            .dropdown
+              button#dropdownMenuButton.btn.btn-danger.btn-xs.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button" 
+                | Actions
+              .dropdown-menu aria-labelledby="dropdownMenuButton"
+                = link_to 'Detail', admin_courier_url(courier), class: 'dropdown-item'
+                = link_to 'Update', edit_admin_courier_url(courier), class: 'dropdown-item'
+                = link_to 'Delete', admin_courier_url(courier), method: :delete, class: 'dropdown-item', data: { confirm: 'Are you sure?' }

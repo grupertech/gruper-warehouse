@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  purchase_date: 2019-03-14
+  number_purchase: MyString
+  vendor: one
+  shipping: MyString
+  status: MyString
+  payment_type: one
+  subtotal: 9.99
+  grand_total: 9.99
+
+two:
+  purchase_date: 2019-03-14
+  number_purchase: MyString
+  vendor: two
+  shipping: MyString
+  status: MyString
+  payment_type: two
+  subtotal: 9.99
+  grand_total: 9.99

@@ -1,0 +1,65 @@
+.table-responsive
+  table.table.table-hover
+    thead
+      tr
+        th Purchase Number
+        th Purchase Date
+        th Vendor
+        th Status
+        th Shipping
+        th Sub Total
+        th Grand Total
+        th Actions
+    tbody
+      - @purchases.each do |purchase|
+        tr
+          td= purchase.number_purchase
+          td= purchase.purchase_date.strftime("%-d %B, %Y")
+          td= purchase.vendor.name
+          - if purchase.status == 'pending'
+            td
+              small.badge.badge-warning.text-capitalize= purchase.status
+          - elsif purchase.status == 'paid'
+            td
+              small.badge.badge-success.text-capitalize= purchase.status
+          - elsif purchase.status == 'paid partially'
+            td
+              small.badge.badge-warning.text-capitalize= purchase.status
+          - elsif purchase.status == 'paid off (paid partially)'
+            td
+              small.badge.badge-success.text-capitalize= purchase.status
+          - elsif purchase.status == 'waiting_payment'
+            td
+              small.badge.badge-secondary.text-capitalize= purchase.status
+          - elsif purchase.status == 'in_process'
+            td
+              small.badge.badge-info.text-capitalize= purchase.status
+          - elsif purchase.status == 'in_shipping'
+            td
+              small.badge.badge-info.text-capitalize= purchase.status
+          - elsif purchase.status == 'completed'
+            td
+              small.badge.badge-success.text-capitalize= purchase.status
+          - elsif purchase.status == 'cancel'
+            td
+              small.badge.badge-danger.text-capitalize= purchase.status
+          td= purchase.shipping
+          td= number_to_currency(purchase.subtotal, precision: 0, unit: 'Rp ', delimiter: '.')
+          td= number_to_currency(purchase.grand_total, precision: 0, unit: 'Rp ', delimiter: '.')
+          - unless purchase.status == 'paid off (paid partially)' || purchase.status == 'paid'
+            td
+              .dropdown
+                button#dropdownMenuButton.btn.btn-danger.btn-xs.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button" 
+                  | Actions
+                .dropdown-menu aria-labelledby="dropdownMenuButton"
+                  - if purchase.status == 'paid' && purchase.status == 'paid partially' && purchase.status == 'paid off (paid partially)'
+                    = link_to 'In Process Purchase', in_process_admin_purchase_url(purchase), class: 'dropdown-item'
+                  - if purchase.status == 'in process'
+                    = link_to 'In Shipping Purchase', in_shipping_admin_purchase_url(purchase), class: 'dropdown-item'
+                  - if purchase.status == 'in shipping'
+                    = link_to 'Completed Purchase', completed_admin_purchases_url(purchase), class: 'dropdown-item'
+                  = link_to 'Detail', admin_purchase_url(purchase), class: 'dropdown-item'
+                  = link_to 'Update', edit_admin_purchase_url(purchase), class: 'dropdown-item'
+                  = link_to 'Delete', admin_purchase_url(purchase), method: :delete, class: 'dropdown-item', data: { confirm: 'Are you sure?' }
+          - else
+            td

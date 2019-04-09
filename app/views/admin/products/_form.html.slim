@@ -1,0 +1,60 @@
+= simple_form_for [:admin, @product] do |f|
+  nav
+    #nav-tab.nav.nav-tabs role="tablist" 
+      a.nav-item.nav-link.active aria-selected="true" data-toggle="tab" href="#nav-product" role="tab"  Detail Product
+      a.nav-item.nav-link aria-selected="false" data-toggle="tab" href="#nav-image" role="tab"  Image Product
+      a.nav-item.nav-link aria-selected="false" data-toggle="tab" href="#nav-price" role="tab"  Price Product
+      a.nav-item.nav-link aria-selected="false" data-toggle="tab" href="#nav-shipping" role="tab"  Shipping Product
+  #nav-tabContent.tab-content
+    #nav-product.tab-pane.fade.show.active aria-labelledby="nav-home-tab" role="tabpanel"
+      .form-group
+        = f.input :name, input_html: {class: 'form-control'}
+      .form-group
+        = f.input :category_id, collection: Category.all, include_blank: 'Select...', input_html: {class: 'form-control selectCategory'}
+      .form-group
+        label SKU
+        = f.input :sku, label: false, input_html: {class: 'form-control'}
+      .form-group
+        = f.input :brand_id, collection: Brand.all, include_blank: "Select...", input_html: {class: 'form-control selectBrand'}
+      .form-group
+        = f.input :unit_id, collection: Unit.all, include_blank: "Select...", input_html: {class: 'form-control'}
+      .form-group
+        = f.input :description, input_html: {class: 'form-control'}, as: :trix_editor
+      .form-group
+        = f.input :status, collection: [['Available', 'available'], ['Unavailable', 'unavailable'], ['In Review', 'in review']], input_html: {class: 'form-control'}, include_blank: "Select... "
+    #nav-image.tab-pane.fade role="tabpanel"
+      .form-group
+        = f.file_field :images, multiple: true
+      .form-group.row
+        - @product.images.each_with_index do |image, index|
+          .col-md-4
+            = image_tag(image.url, class: 'img-fluid')
+            = link_to 'Delete', admin_image_product_url(@product, index), class: 'btn btn-danger btn-block', :method => :delete, data: { confirm: "Are you sure you want to delete this image?" }
+    #nav-price.tab-pane.fade role="tabpanel"
+      .form-group
+        = f.input :price, input_html: {class: 'form-control'}
+      .form-group
+        = f.input :qty, input_html: {class: 'form-control'}
+    #nav-shipping.tab-pane.fade role="tabpanel"
+      .form-group
+        label Package Weight (Gram)
+        = f.input :weight, label: false, input_html: {class: 'form-control'}
+      .form-group
+        label Package Length (CM)
+        = f.input :length, label: false, input_html: {class: 'form-control'}
+      .form-group
+        label Package High (CM)
+        = f.input :high, label: false, input_html: {class: 'form-control'}
+      .form-group
+        label Package Wide (CM)
+        = f.input :wide, label: false, input_html: {class: 'form-control'}
+  .form-group
+    = f.button :submit, 'save', class: 'btn btn-danger btn-block text-capitalize'
+
+javascript:
+  $(".selectCategory").select2({
+    theme: "bootstrap"
+  });
+  $(".selectBrand").select2({
+    theme: "bootstrap"
+  })

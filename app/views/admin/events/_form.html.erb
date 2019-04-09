@@ -1,0 +1,29 @@
+<%= simple_form_for [:admin, @event], url: admin_events_url, remote: true do |f| %>
+  <div class="form-group">
+    <%= f.input :title, input_html: { class: "form-control" } %>
+    <%= f.input_field :start_event, as: :hidden, value: Date.today, class: 'form-control input-sm start_hidden' %>
+    <%= f.input_field :end_event, as: :hidden, value: Date.today, class: 'form-control input-sm end_hidden' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.input :date_range, input_html: { class: "form-control input-sm date-range-picker" } %>
+  </div>
+    
+  <div class="form-group">
+    <%= f.input :color, as: :select, collection: [['Black','black'], ['Green','green'], ['Red','red']], input_html: { class: "form-control" }, include_blank: "Select..." %>
+  </div>
+
+  <div class="form-group">
+    <%= f.button :submit %>
+    <%= link_to 'New Recurring Event', 
+                new_admin_recurring_event_url,
+                class: 'btn btn-default', 
+                remote: true if @event.new_record? %>
+    <%= link_to 'Delete', 
+                admin_event_url(@event),
+                method: :delete, 
+                class: 'btn btn-danger', 
+                data: { confirm: 'Are you sure?' }, 
+                remote: true unless @event.new_record? %>
+  </div>
+<% end %>

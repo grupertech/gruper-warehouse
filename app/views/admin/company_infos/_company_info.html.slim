@@ -1,0 +1,26 @@
+.table-responsive
+  table.table.table-hover
+    thead
+      tr
+        th Name
+        th NPWP
+        th Website
+        th City
+        th Province
+        th Postal Code
+        th Actions
+    tbody
+      - @company_infos.each do |company_info|
+        tr
+          td= company_info.name_company
+          td= company_info.npwp
+          td= company_info.website
+          td= company_info.city
+          td= company_info.province
+          td= company_info.postal_code
+          td
+            .dropdown
+              button#dropdownMenuButton.btn.btn-danger.btn-xs.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button" 
+                | Actions
+              .dropdown-menu aria-labelledby="dropdownMenuButton" 
+                = link_to 'Update', edit_admin_company_info_url(company_info), class: 'dropdown-item'

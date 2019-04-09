@@ -1,0 +1,43 @@
+.card
+  ul.nav.nav-tabs 
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/purchases")}") href=admin_purchases_url All Purchases
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/purchases/pending")}") href=pending_admin_purchases_url Pending Purchases
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/purchases/waiting-payment")}") href=waiting_payment_admin_purchases_url Waiting Payment Purchases
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/purchases/in-process")}") href=in_process_admin_purchases_url In Process Purchases
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/purchases/in-shipping")}") href=in_shipping_admin_purchases_url In Shipping Purchases
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/purchases/completed")}") href=completed_admin_purchases_url Completed Purchases
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/purchases/cancel")}") href=cancel_admin_purchases_url Cancel Purchases
+  .card-header
+    .float-left= yield(:title)
+    - if yield(:title) == 'All Purchases'
+      .float-right
+        = link_to "New Purchase", new_admin_purchase_url, class: 'badge badge-primary'
+  .card-body
+    = search_form_for @q, url: admin_purchases_url do |f|
+      .row
+        .col-md-3
+          .form-group
+            = f.search_field :number_purchase_cont, class: 'form-control', placeholder: 'Purchase Number'
+        .col-md-3
+          .form-group
+            = f.search_field :shipping_cont, class: 'form-control', placeholder: 'Shipping'
+        .col-md-3
+          .form-group
+            = f.search_field :vendor_name_cont, class: 'form-control', placeholder: 'Vendor Name'
+        .col-md-3
+          .form-group
+            .row
+              .col-md-6
+                = f.submit 'Search', class: 'btn btn-success btn-block'
+              .col-md-6
+                input.btn.btn-default.btn-block[value="Clear" type="button" onclick="location.href='#{request.path}'"]
+    = render 'purchase'
+    .digg_pagination
+      = will_paginate @purchases, :container => false

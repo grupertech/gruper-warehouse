@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  start_event: 2019-02-10
+  end_event: 2019-02-10
+  color: MyString
+
+two:
+  title: MyString
+  start_event: 2019-02-10
+  end_event: 2019-02-10
+  color: MyString

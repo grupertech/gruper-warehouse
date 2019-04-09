@@ -1,0 +1,18 @@
+= simple_form_for [:admin, @customer] do |f|
+  .form-group
+    = f.input :name, input_html: {class: 'form-control'}
+  .form-group
+    = f.input :email, input_html: {class: 'form-control'}
+  .form-group
+    = f.input :company, input_html: {class: 'form-control'}
+  .form-group
+    label Phone Number
+    = f.number_field :phone_number, class: 'form-control'
+  .form-group
+    = f.input :balance, input_html: {class: 'form-control'}
+  .form-group
+    = f.input :address, input_html: {class: 'form-control'}
+  .form-group
+    = f.input :country, input_html: {class: 'form-control'}, include_blank: "Select..."
+  .form-group
+    = f.button :submit, 'save', class: 'btn btn-danger btn-block text-capitalize'

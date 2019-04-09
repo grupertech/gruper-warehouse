@@ -1,0 +1,66 @@
+.table-responsive
+  table.table.table-hover
+    thead
+      tr
+        th Invoice Number
+        th Invoice Date
+        th Customer
+        th Status
+        th Shipping
+        th Sub Total
+        th Grand Total
+        th Actions
+    tbody
+      - @invoices.each do |invoice|
+        tr
+          td= invoice.number_invoice
+          td= invoice.invoice_date.strftime("%-d %B, %Y")
+          td= invoice.customer.name
+          - if invoice.status == 'pending'
+            td
+              small.badge.badge-warning.text-capitalize= invoice.status
+          - elsif invoice.status == 'paid'
+            td
+              small.badge.badge-success.text-capitalize= invoice.status
+          - elsif invoice.status == 'paid partially'
+            td
+              small.badge.badge-warning.text-capitalize= invoice.status
+          - elsif invoice.status == 'paid off (paid partially)'
+            td
+              small.badge.badge-success.text-capitalize= invoice.status
+          - elsif invoice.status == 'waiting payment'
+            td
+              small.badge.badge-secondary.text-capitalize= invoice.status
+          - elsif invoice.status == 'in process'
+            td
+              small.badge.badge-info.text-capitalize= invoice.status
+          - elsif invoice.status == 'in shipping'
+            td
+              small.badge.badge-info.text-capitalize= invoice.status
+          - elsif invoice.status == 'completed'
+            td
+              small.badge.badge-success.text-capitalize= invoice.status
+          - elsif invoice.status == 'cancel'
+            td
+              small.badge.badge-danger.text-capitalize= invoice.status
+          td= invoice.shipping
+          td= number_to_currency(invoice.subtotal, precision: 0, unit: 'Rp ', delimiter: '.')
+          td= number_to_currency(invoice.grand_total, precision: 0, unit: 'Rp ', delimiter: '.')
+          - unless invoice.status == 'paid off (paid partially)' || invoice.status == 'paid'
+            td
+              .dropdown
+                button#dropdownMenuButton.btn.btn-danger.btn-xs.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button" 
+                  | Actions
+                .dropdown-menu aria-labelledby="dropdownMenuButton" 
+                  - if invoice.status == 'paid' && invoice.status == 'paid partially' && invoice.status == 'paid off (paid partially)'
+                    = link_to 'In Process Invoice', in_process_admin_invoice_url(invoice), class: 'dropdown-item'
+                  - if invoice.status == 'in process'
+                    = link_to 'In Shipping Invoice', in_shipping_admin_invoice_url(invoice), class: 'dropdown-item'
+                  - if invoice.status == 'in shipping'
+                    = link_to 'Completed Invoice', completed_admin_invoices_url(invoice), class: 'dropdown-item'
+                  = link_to 'Detail', admin_invoice_url(invoice), class: 'dropdown-item'
+                  = link_to 'Update', edit_admin_invoice_url(invoice), class: 'dropdown-item'
+                  = link_to 'Cancel Invoice', cancel_admin_invoices_url(invoice), class: 'dropdown-item'
+                  = link_to 'Delete', admin_invoice_url(invoice), method: :delete, class: 'dropdown-item', data: { confirm: 'Are you sure?' }
+          - else
+            td

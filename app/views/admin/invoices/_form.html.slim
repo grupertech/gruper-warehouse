@@ -1,0 +1,28 @@
+= simple_form_for [:admin, @invoice] do |f|
+  .form-group
+    label Customer
+    = f.input :customer_id, label: false, collection: Customer.all, label_method: :name, value_method: :id, input_html: {class: 'form-control selectCust'}, include_blank: "Select..."
+  .form-group
+    label Invoice Date
+    = f.date_field :invoice_date, class: 'form-control', value: Date.today
+  .form-group
+    = f.input :number_invoice, input_html: {class: 'form-control', placeholder: 'INV' + Date.today.strftime("%d%m%Y") + @invoice.id.to_s.rjust(5, '0')}, disabled: true
+  .form-group
+    label Payment Type
+    = f.input :payment_type_id, label: false, collection: PaymentType.all, value_method: :id, label_method: :name, input_html: {class: 'form-control'}, include_blank: "select..."
+  .form-group
+    label Shipping Number
+    = f.input :shipping, label: false, input_html: {class: 'form-control', placeholder: "#{'#' + Date.today.strftime('%d%m%Y') + @invoice.id.to_s.rjust(5, '0')}"}, disabled: true
+  #invoice_details_field
+    = f.simple_fields_for :invoice_details do |invoice_detail|
+      = render 'invoice_detail_fields', f: invoice_detail
+  .form-group
+    = link_to_add_association 'add invoice detail', f, :invoice_details, class: 'btn btn-outline-dark btn-block text-capitalize', data: { association_insertion_node: '#invoice_details_field', association_insertion_method: :append }
+  .form-group
+    = f.button :submit, 'save', class: 'btn btn-danger btn-block text-capitalize'
+
+javascript:
+  // Select2 rails
+  $(".selectCust").select2({
+    theme: "bootstrap"
+  });

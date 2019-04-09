@@ -1,0 +1,11 @@
+= title 'Couriers'
+
+.card
+  .card-header
+    .float-left Couriers
+    .float-right
+      = link_to 'New Courier', new_admin_courier_url, class: 'text-white badge badge-primary'
+  .card-body
+    = render 'courier'
+    .digg_pagination
+      = will_paginate @couriers, :container => false

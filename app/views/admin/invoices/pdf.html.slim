@@ -1,0 +1,133 @@
+.card
+  .card-header
+    .pull-left Invoice Number:
+    .pull-right= "#{invoice.number_invoice}"
+  .card-body
+    .row
+      .col-md-12
+        .pull-left
+          address
+            strong Billed To:
+            br/
+            - if invoice.customer.present?
+              = invoice.customer.name
+            - elsif invoice.vendor.present?
+              = invoice.vendor.name
+            - else
+              = ''
+            br/
+            - if invoice.customer.present?
+              = invoice.customer.phone_number
+            - elsif invoice.vendor.present?
+              = invoice.vendor.phone_number
+            - else
+              = ''
+            br/
+            - if invoice.customer.present?
+              = invoice.customer.address
+            - elsif invoice.vendor.present?
+              = invoice.vendor.address
+            - else
+              = ''
+            br/
+            - if invoice.customer.present?
+              = invoice.customer.country
+            - elsif invoice.vendor.present?
+              = invoice.vendor.country
+            - else
+              = ''
+        .pull-right
+          address.text-right
+            strong Shipped To:
+            br/
+            - if invoice.customer.present?
+              = invoice.customer.name
+            - elsif invoice.vendor.present?
+              = invoice.vendor.name
+            - else
+              = ''
+            br/
+            - if invoice.customer.present?
+              = invoice.customer.phone_number
+            - elsif invoice.vendor.present?
+              = invoice.vendor.phone_number
+            - else
+              = ''
+            br/
+            - if invoice.customer.present?
+              = invoice.customer.address
+            - elsif invoice.vendor.present?
+              = invoice.vendor.address
+            - else
+              = ''
+            br/
+            - if invoice.customer.present?
+              = invoice.customer.country
+            - elsif invoice.vendor.present?
+              = invoice.vendor.country
+            - else
+              = ''
+    .row
+      .col-md-12
+        address.pull-left
+          strong Payment Type:
+          br/
+          = invoice.payment_type.name
+          br/
+          - if invoice.customer.present?
+            = invoice.customer.email
+          - elsif invoice.vendor.present?
+            = invoice.vendor.email
+          - else
+            = ''
+        address.pull-right.text-right
+          strong Invoice Date:
+          br/
+          = invoice.invoice_date.strftime("%-d %B, %Y")
+          br/
+          br/
+    .row
+      .col-md-12
+        address.pull-left
+          strong Status:
+          br/
+          - if invoice.status == 'pending'
+            .badge.badge-warning.text-capitalize= invoice.status
+          - elsif invoice.status == 'paid'
+            .badge.badge-success.text-capitalize= invoice.status
+          - elsif invoice.status == 'cancel'
+            .badge.badge-danger.text-capitalize= invoice.status
+    .row
+      .col-md-12
+        .table-responsive
+          table.table.table-bordered
+            thead
+              tr
+                th.text-center colspan="5" Invoice Summary
+              tr
+                td
+                  strong Item
+                td.text-center
+                  strong Price
+                td.text-center
+                    strong Tax
+                td.text-center
+                  strong Quantity
+                td.text-right
+                  strong Totals
+            tbody
+              - invoice.invoice_details.each_with_index do |invoice_detail|
+                tr
+                  td= invoice_detail.product.name
+                  td.text-center= number_to_currency(invoice_detail.cost, precision: 0, unit: 'Rp ', delimiter: '.')
+                  td.text-center= "#{invoice_detail.tax.name} = #{number_to_currency(invoice_detail.tax_per_product, precision: 0, unit: 'Rp ', delimiter: '.')} / Product"
+                  td.text-center= invoice_detail.qty
+                  td.text-right= number_to_currency(invoice_detail.total_price, precision: 0, unit: 'Rp ', delimiter: '.')
+              tr
+                td colspan="3" style="border-top-width: thick;"
+                th.text-center style="border-top-width: thick;" Subtotal
+                td.text-right style="border-top-width: thick;"= number_to_currency(invoice.subtotal, precision: 0, unit: 'Rp ', delimiter: '.')
+              tr
+                td colspan="3" style="border-top-width: thick;"
+                th.text-center style="border-top-width: thick;" Grandtotal + Tax
+                td.text-right style="border-top-width: thick;"= number_to_currency(invoice.grand_total, precision: 0, unit: 'Rp ', delimiter: '.')

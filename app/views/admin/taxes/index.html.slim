@@ -1,0 +1,11 @@
+= title 'Taxes'
+
+.card
+  .card-header
+    .float-left Taxes
+    .float-right
+      = link_to 'New Tax', new_admin_tax_url, class: 'text-white badge badge-primary'
+  .card-body
+    = render 'tax'
+    .digg_pagination
+      = will_paginate @taxes, :container => false

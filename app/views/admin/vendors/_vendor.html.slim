@@ -1,0 +1,28 @@
+.table-responsive
+  table.table.table-hover
+    thead
+      tr
+        th Name
+        th Email
+        th Company
+        th Phone Number
+        th Address
+        th Country
+        th Actions
+    tbody
+      - @vendors.each do |vendor|
+        tr
+          td= vendor.name
+          td= vendor.email
+          td= vendor.company
+          td= vendor.phone_number
+          td= vendor.address
+          td= vendor.country
+          td
+            .dropdown
+              button#dropdownMenuButton.btn.btn-danger.btn-xs.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button" 
+                | Actions
+              .dropdown-menu aria-labelledby="dropdownMenuButton"
+                = link_to 'Detail', admin_vendor_url(vendor), class: 'dropdown-item'
+                = link_to 'Update', edit_admin_vendor_url(vendor), class: 'dropdown-item'
+                = link_to 'Delete', admin_vendor_url(vendor), method: :delete, class: 'dropdown-item', data: { confirm: 'Are you sure?' }

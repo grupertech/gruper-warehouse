@@ -1,0 +1,11 @@
+= title 'Vendors'
+
+.card
+  .card-header
+    .float-left Vendors
+    .float-right
+      = link_to 'New Vendor', new_admin_vendor_url, class: 'text-white badge badge-primary'
+  .card-body
+    = render 'vendor'
+    .digg_pagination
+      = will_paginate @vendors, :container => false

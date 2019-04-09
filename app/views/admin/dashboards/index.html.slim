@@ -1,0 +1,87 @@
+= title 'Dashboards'
+
+.row
+  .col-md-4
+    .card
+      .card-header
+        .float-left Invoices
+        .float-right.badge.badge-primary Today
+      .card-body
+        h4= @invoices_today
+        small Total Invoices
+      hr/
+      .card-body
+        h4= number_to_currency(@invoices_today_amount, precision: 0, unit: 'Rp ', delimiter: '.')
+        small Value Invoices
+  .col-md-4
+    .card
+      .card-header
+        .float-left Invoices
+        .float-right.badge.badge-info This Week
+      .card-body
+        h4= @invoices_this_week
+        small Total Invoices
+      hr/
+      .card-body
+        h4= number_to_currency(@invoices_this_week_amount, precision: 0, unit: 'Rp ', delimiter: '.')
+        small Value Invoices
+  .col-md-4
+    .card
+      .card-header
+        .float-left Invoices
+        .float-right.badge.badge-default This Month
+      .card-body
+        h4= @invoices_this_month
+        small Total Invoices
+      hr/
+      .card-body
+        h4= number_to_currency(@invoices_this_month_amount, precision: 0, unit: 'Rp ', delimiter: '.')
+        small Value Invoices
+.row
+  .col-md-4
+    .card
+      .card-header
+        .float-left Invoices
+        .float-right.badge.badge-success Paid
+      .card-body
+        h4= @invoices_paid
+        small Total Invoices
+      hr/
+      .card-body
+        h4= number_to_currency(@invoices_paid_amount, precision: 0, unit: 'Rp ', delimiter: '.')
+        small Value Invoices
+  .col-md-4
+    .card
+      .card-header
+        .float-left Invoices
+        .float-right.badge.badge-warning Pending
+      .card-body
+        h4= @invoices_pending
+        small Total Invoices
+      hr/
+      .card-body
+        h4= number_to_currency(@invoices_pending_amount, precision: 0, unit: 'Rp ', delimiter: '.')
+        small Value Invoices
+  .col-md-4
+    .card
+      .card-header
+        .float-left Invoices
+        .float-right.badge.badge-danger Cancel
+      .card-body
+        h4= @invoices_cancel
+        small Total Invoices
+      hr/
+      .card-body
+        h4= number_to_currency(@invoices_cancel_amount, precision: 0, unit: 'Rp ', delimiter: '.')
+        small Value Invoices
+.row
+  .col-md-12
+    .card
+      .card-header Invoices Chart Per Day
+      .card-body
+        = column_chart Invoice.group_by_day_of_week(:created_at, format: "%a").count
+  /.col-md-12
+    .card
+      .card-header Payments Chart Per Day
+      .card-body
+        = column_chart Payment.group_by_day_of_week(:created_at, format: "%a").count

@@ -1,0 +1,43 @@
+.card
+  ul.nav.nav-tabs 
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/invoices")}") href=admin_invoices_url All Invoices
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/invoices/pending")}") href=pending_admin_invoices_url Pending Invoices
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/invoices/waiting-payment")}") href=waiting_payment_admin_invoices_url Waiting Payment Invoices
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/invoices/in-process")}") href=in_process_admin_invoices_url In Process Invoices
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/invoices/in-shipping")}") href=in_shipping_admin_invoices_url In Shipping Invoices
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/invoices/completed")}") href=completed_admin_invoices_url Completed Invoices
+    li.nav-item
+      a class=("nav-link #{active_for(path: "/en/admin/invoices/cancel")}") href=cancel_admin_invoices_url Cancel Invoices
+  .card-header
+    .float-left= yield(:title)
+    - if yield(:title) == 'All Invoices'
+      .float-right
+        = link_to "New Invoice", new_admin_invoice_url, class: 'badge badge-primary'
+  .card-body
+    = search_form_for @q, url: admin_invoices_url do |f|
+      .row
+        .col-md-3
+          .form-group
+            = f.search_field :number_invoice_cont, class: 'form-control', placeholder: 'Invoice Number'
+        .col-md-3
+          .form-group
+            = f.search_field :shipping_cont, class: 'form-control', placeholder: 'Shipping Number'
+        .col-md-3
+          .form-group
+            = f.search_field :customer_name_cont, class: 'form-control', placeholder: 'Customer Name'
+        .col-md-3
+          .form-group
+            .row
+              .col-md-6
+                = f.submit 'Search', class: 'btn btn-success btn-block'
+              .col-md-6
+                input.btn.btn-default.btn-block[value="Clear" type="button" onclick="location.href='#{request.path}'"]
+    = render 'invoice'
+    .digg_pagination
+      = will_paginate @invoices, :container => false

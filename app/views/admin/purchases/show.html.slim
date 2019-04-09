@@ -1,0 +1,94 @@
+= title 'Detail Purchase'
+
+.card
+  .card-header
+    .pull-left Detail Purchase
+    .pull-right= link_to 'Download Purchase', admin_download_url(@purchase, format: "pdf"), target: "_blank", class: 'btn btn-danger btn-xs'
+  .card-body
+    .row
+      .col-md-12
+        h2.pull-left Purchase Number:
+        h2.pull-right= "#{@purchase.number_purchase}"
+    hr/
+    .row
+      .col-md-12
+        .pull-left
+          address
+            strong Billed To:
+            br/
+            = @purchase.vendor.name
+            br/
+            = @purchase.vendor.phone_number
+            br/
+            = @purchase.vendor.address
+            br/
+            = @purchase.vendor.country
+        .pull-right
+          address.text-right
+            strong Shipped To:
+            br/
+            = @purchase.vendor.name
+            br/
+            = @purchase.vendor.phone_number
+            br/
+            = @purchase.vendor.address
+            br/
+            = @purchase.vendor.country
+    .row
+      .col-md-12
+        address.pull-left
+          strong Payment Method:
+          br/
+          .text-capitalize= @purchase.payment_type.name
+          = @purchase.vendor.email
+        address.pull-right.text-right
+          strong purchase Date:
+          br/
+          = @purchase.purchase_date.strftime("%-d %B, %Y")
+          br/
+          br/
+    .row
+      .col-md-12
+        address.pull-left
+          strong Status:
+          br/
+          - if @purchase.status == 'pending'
+            .badge.badge-warning.text-capitalize= @purchase.status
+          - elsif @purchase.status == 'paid'
+            .badge.badge-success.text-capitalize= @purchase.status
+          - elsif @purchase.status == 'cancel'
+            .badge.badge-danger.text-capitalize= @purchase.status
+    .row
+      .col-md-12
+        .table-responsive
+          table.table.table-bordered
+            thead
+              tr
+                th.text-center colspan="5" purchase Summary
+              tr
+                td
+                  strong Item
+                td.text-center
+                  strong Price
+                td.text-center
+                    strong Tax
+                td.text-center
+                  strong Quantity
+                td.text-right
+                  strong Totals
+            tbody
+              - @purchase.purchase_details.each do |purchase_detail|
+                tr
+                  td= purchase_detail.product.name
+                  td.text-center= number_to_currency(purchase_detail.cost, precision: 0, unit: 'Rp ', delimiter: '.')
+                  td.text-center= "#{purchase_detail.tax.name} = #{number_to_currency(purchase_detail.tax_per_product, precision: 0, unit: 'Rp ', delimiter: '.')} / Product"
+                  td.text-center= purchase_detail.qty
+                  td.text-right= number_to_currency(purchase_detail.total_price, precision: 0, unit: 'Rp ', delimiter: '.')
+              tr
+                td colspan="3" style="border-top-width: thick;"
+                th.text-center style="border-top-width: thick;" Subtotal
+                td.text-right style="border-top-width: thick;"= number_to_currency(@purchase.subtotal, precision: 0, unit: 'Rp ', delimiter: '.')
+              tr
+                td colspan="3" style="border-top-width: thick;"
+                th.text-center style="border-top-width: thick;" Grandtotal + Tax
+                td.text-right style="border-top-width: thick;"= number_to_currency(@purchase.grand_total, precision: 0, unit: 'Rp ', delimiter: '.')

@@ -1,0 +1,38 @@
+= title 'Detail Customer'
+
+.card
+  .card-header
+    .pull-left Detail Customer
+    .pull-right List Invoices
+  .card-body
+    table.table.table-bordered
+      thead
+        tr
+          th Invoice Number
+          th Shipping
+          th Date
+          th Status
+          th Total Price
+          th Actions
+      tbody
+        - @invoices.each do |invoice|
+          tr
+            td= invoice.reference
+            td= invoice.shipping
+            td= invoice.invoice_date.strftime("%-d %B, %Y")
+            - if invoice.status == 'pending'
+              td
+                small.badge.badge-warning= invoice.status.capitalize
+            - elsif invoice.status == 'paid'
+              td
+                small.badge.badge-success= invoice.status.capitalize
+            - elsif invoice.status == 'cancel'
+              td
+                small.badge.badge-danger= invoice.status.capitalize
+            td= number_to_currency(invoice.grand_total, precision: 0, unit: 'Rp ', delimiter: '.')
+            td
+              .dropdown
+                button#dropdownMenuButton.btn.btn-danger.btn-xs.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button" 
+                  | Actions
+                .dropdown-menu aria-labelledby="dropdownMenuButton" 
+                  = link_to 'Download Invoice', admin_download_url(invoice, format: "pdf"), target: "_blank", class: 'dropdown-item'

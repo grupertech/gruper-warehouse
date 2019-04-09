@@ -1,0 +1,6 @@
+$('#paymentModal h5').html("Paid Partially");
+$('#paymentModal .modal-body').html('<%= j render("form_paid_partially") %>');
+$('#paymentModal').modal("show");
+$('#paymentModal').on('shown.bs.modal', function () {
+  $('.first_input').focus()
+});

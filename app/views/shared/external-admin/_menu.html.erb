@@ -1,0 +1,97 @@
+<li class="nav-item <%= active_for(controller: "dashboards") %>">
+  <%= link_to admin_root_url, class: "nav-link" do %>
+    <i class="material-icons">dashboard</i>
+    <p><%= t('dashboard') %></p>
+  <% end %>
+</li>
+<li class="nav-item <%= active_for(controller: "pages") %>">
+  <%= link_to admin_schedules_url, class: "nav-link" do %>
+    <i class="material-icons">event</i>
+    <p><%= t('schedules') %></p>
+  <% end %>
+</li>
+<li class="nav-item <%= active_for(controller: "invoices") %>">
+  <%= link_to admin_invoices_url, class: "nav-link" do %>
+    <i class="material-icons">description</i>
+    <p><%= t('invoices') %></p>
+  <% end %>
+</li>
+<li class="nav-item <%= active_for(controller: "purchases") %>">
+  <%= link_to admin_purchases_url, class: "nav-link" do %>
+    <i class="material-icons">description</i>
+    <p><%= t('purchases') %></p>
+  <% end %>
+</li>
+<li class="nav-item <%= active_for(controller: "payments") %>">
+  <%= link_to admin_payments_url, class: "nav-link" do %>
+    <i class="material-icons">attach_money</i>
+    <p><%= t('payments') %></p>
+  <% end %>
+</li>
+<li class="nav-item <%= active_for(controller: "payment_types") %>">
+  <%= link_to admin_payment_types_url, class: "nav-link" do %>
+    <i class="material-icons">payment</i>
+    <p><%= t('payment_types') %></p>
+  <% end %>
+</li>
+<li class="nav-item <%= active_for(controller: "categories") %>">
+  <%= link_to admin_categories_url, class: "nav-link" do %>
+    <i class="material-icons">category</i>
+    <p><%= t('categories') %></p>
+  <% end %>
+</li>
+<li class="nav-item <%= active_for(controller: "brands") %>">
+  <%= link_to admin_brands_url, class: "nav-link" do %>
+    <i class="material-icons">branding_watermark</i>
+    <p><%= t('brands') %></p>
+  <% end %>
+</li>
+<li class="nav-item <%= active_for(controller: "units") %>">
+  <%= link_to admin_units_url, class: "nav-link" do %>
+    <i class="material-icons">all_inclusive</i>
+    <p><%= t('units') %></p>
+  <% end %>
+</li>
+<li class="nav-item <%= active_for(controller: "products") %>">
+  <%= link_to admin_products_url, class: "nav-link" do %>
+    <i class="material-icons">layers</i>
+    <p><%= t('products') %></p>
+  <% end %>
+</li>
+<!--<li class="nav-item <#%= active_for(controller: "couriers") %>">
+  <#%= link_to admin_couriers_url, class: "nav-link" do %>
+    <i class="material-icons">local_shipping</i>
+    <p><#%= t('couriers') %></p>
+  <#% end %>
+</li>-->
+<li class="nav-item <%= active_for(controller: "customers") %>">
+  <%= link_to admin_customers_url, class: "nav-link" do %>
+    <i class="material-icons">account_circle</i>
+    <p><%= t('customers') %></p>
+  <% end %>
+</li>
+<li class="nav-item <%= active_for(controller: "vendors") %>">
+  <%= link_to admin_vendors_url, class: "nav-link" do %>
+    <i class="material-icons">account_circle</i>
+    <p><%= t('vendors') %></p>
+  <% end %>
+</li>
+<li class="nav-item <%= active_for(controller: "taxes") %>">
+  <%= link_to admin_taxes_url, class: "nav-link" do %>
+    <i class="material-icons">attach_money</i>
+    <p><%= t('taxes') %></p>
+  <% end %>
+</li>
+<li class="nav-item <%= active_for(controller: "report_pages") %>">
+  <%= link_to admin_reports_all_url, class: "nav-link" do %>
+    <i class="material-icons">insert_chart</i>
+    <p><%= t('reports') %></p>
+  <% end %>
+</li>
+
+<li class="nav-item <%= active_for(controller: "company_infos") %>">
+  <%= link_to admin_company_infos_url, class: "nav-link" do %>
+    <i class="material-icons">settings</i>
+    <p><%= t('company_info') %></p>
+  <% end %>
+</li>

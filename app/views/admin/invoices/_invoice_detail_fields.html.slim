@@ -1,0 +1,30 @@
+.nested-fields
+  .form-group
+    table.table.table-bordered
+      tr
+        - price = Hash[Product.all.map{|p| [p.id, p.price]}].to_json
+        /td= f.input :product_id, label: false, collection: Product.order('created_at desc').where(status: 'available'), input_html: { class: 'form-control selectProduct', data: {price: price}, id: 'products' }, include_blank: "Select Product"
+        td= f.association :product, label: false, input_html: { class: 'products form-control selectProduct', data: {price: price} }, include_blank: "Select Product"
+        td= f.text_field :cost, class: 'price form-control', placeholder: "Cost", disabled: true
+        td= f.input :qty,as: :string, label: false, input_html: { class: 'form-control' }, placeholder: "Qty"
+        td= f.input :tax_id, label: false, collection: Tax.all, input_html: {class: 'form-control'}, include_blank: "Select Tax"
+        td
+          = link_to_remove_association f, class: 'btn btn-danger btn-block text-capitalize' do
+            i.fa.fa-trash
+
+javascript:
+  $(document).ready(function() {
+    // Select2 rails
+    $(".selectProduct").select2({
+      theme: "bootstrap"
+    });
+
+    // Selecting price product
+    $('.products').change(function() {
+      var product_id = $(this).val();
+      var price = eval($(this).data('price')[product_id]);
+      //var price = parseFloat(this.value);
+      $(this).siblings('.price').html(price);
+      debugger;
+    });
+  });

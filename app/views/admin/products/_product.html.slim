@@ -1,0 +1,29 @@
+.table-responsive
+  table.table.table-hover
+    thead
+      tr
+        th SKU
+        th Name
+        th Price
+        th Qty
+        th Status
+        th Actions
+    tbody
+      - @products.each do |product|
+        tr
+          td= product.sku
+          td= product.name
+          td= number_to_currency(product.price, precision: 0, unit: 'Rp ', delimiter: '.')
+          td= product.qty
+          td
+            - if product.status == 'available'
+              .badge.badge-success= product.status.capitalize
+            - else
+              .badge.badge-danger= product.status.capitalize
+          td
+            .dropdown
+              button#dropdownMenuButton.btn.btn-danger.btn-xs.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button" 
+                | Actions
+              .dropdown-menu aria-labelledby="dropdownMenuButton" 
+                = link_to 'Update', edit_admin_product_url(product), class: 'dropdown-item'
+                = link_to 'Delete', admin_product_url(product), method: :delete, class: 'dropdown-item', data: { confirm: 'Are you sure?' }

@@ -1,0 +1,14 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    meta charset="UTF-8" /
+    meta content="" name="description" /
+    meta content="IE=edge" http-equiv="X-UA-Compatible" /
+    meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" /
+    title
+      | Gruper-Warehouse #{content_for?(:title) ? yield(:title) : 'Management Only'}
+    style
+      = Rails.application.assets.find_asset('pdf').to_s
+  body
+    = yield

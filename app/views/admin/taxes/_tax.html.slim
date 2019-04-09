@@ -1,0 +1,19 @@
+.table-responsive
+  table.table.table-hover
+    thead
+      tr
+        th Name
+        th Rate
+        th Actions
+    tbody
+      - @taxes.each do |tax|
+        tr
+          td= tax.name
+          td= "#{tax.rate} %"
+          td
+            .dropdown
+              button#dropdownMenuButton.btn.btn-danger.btn-xs.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button" 
+                | Actions
+              .dropdown-menu aria-labelledby="dropdownMenuButton" 
+                = link_to 'Update', edit_admin_tax_url(tax), class: 'dropdown-item'
+                = link_to 'Delete', admin_tax_url(tax), method: :delete, class: 'dropdown-item', data: { confirm: 'Are you sure?' }
