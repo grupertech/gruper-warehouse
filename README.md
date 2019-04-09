@@ -30,7 +30,7 @@ $ rails db:seed
 
 Reach out to us on
 
-- Website at <a href="https://gruper.co" target="_blank">`gruper.co`</a>
+- Website at <a href="https://gruper.co" target="_blank">`Gruper Technology`</a>
 
 ---
 
